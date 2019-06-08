@@ -1,0 +1,6 @@
+/* pages/surveydetail/surveydetail.wxss */
+.title{
+  text-align: center;
+  color: #2d8cf0;
+
+}
