@@ -3,22 +3,23 @@
 <text >问卷标题</text>
 </view>
 
-<!-- <view>
-<i-panel title='问题1'>
-  <i-radio-group>
-    <i-radio wx:for="{{survey.questions}}" value='item.title'>
-    </i-radio>
-  </i-radio-group>
-</i-panel>
-</view> -->
-
 <view>
   <block wx:for='{{survey.questions}}' wx:for-item='questions' wx:key="title">
-    <i-panel title='{{questions.title}}'>
-      <i-radio-group current="{{questions.current}}" bindchange="handleChange" id='{{index}}'>
+    <i-panel wx:if="{{questions.radio}}" title='{{questions.title}}'>
+      <i-radio-group current="{{questions.current}}" bindchange="handleRadioChange" id='{{index}}'>
         <i-radio wx:for="{{questions.choices}}" value='{{item}}' wx:key="*this">
         </i-radio>
       </i-radio-group>
     </i-panel>
+    <i-panel wx:if="{{questions.radio==false}}" title='{{questions.title}}'>
+      <i-checkbox-group current="{{questions.current}}" bindchange="handleCheckboxChange" id='{{index}}'>
+        <i-checkbox wx:for="{{questions.choices}}" value='{{item}}' wx:key="*this">
+        </i-checkbox>
+      </i-checkbox-group>
+    </i-panel>
   </block>
+</view>
+
+<view>
+  <i-button bind:click="handleSubmitClick" type='success' shape='circle'>提交</i-button>
 </view>

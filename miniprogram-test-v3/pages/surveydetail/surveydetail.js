@@ -11,33 +11,58 @@ Page({
       current: '1',
       questions: [
         { title: '问题1', 
-          Radio: true,
+          radio: true,
           current: '1',
           choices: [
           '1', '2', '3', '4'
         ]},
         { title: '问题2', 
-          Radio: false,
-          current: '5', 
+          radio: false,
+          current: ['5', '6'], 
           choices: [
           '5', '6', '7'
         ]}
       ]
     }
   },
-
-  handleChange: function(e) {
-    var that = this
-    var id = e.target.id
+  
+  /*
+  单选题的Change事件
+  */
+  handleRadioChange: function(e) {
+    var that = this;
+    var id = e.target.id;
     // console.log(id)
-    let survey = that.data.survey
+    let survey = that.data.survey;
     // console.log(new_survey)
     // console.log(survey.questions[0])
-    survey.questions[id].current = e.detail.value
+    survey.questions[id].current = e.detail.value;
     that.setData({
       survey
     });
   },
+
+  /*
+  多选题的Change事件
+  */
+  handleCheckboxChange: function(e) {
+    var that = this;
+    var id = e.target.id;
+    let survey = that.data.survey;
+    const index = survey.questions[id].current.indexOf(e.detail.value);
+    index === -1 ? survey.questions[id].current.push(e.detail.value) : survey.questions[id].current.splice(index, 1);
+    this.setData({
+      survey
+    });
+    // console.log(survey.questions[id].current)
+  },
+
+  /*
+  提交问卷
+  */
+  handleSubmitClick: function(e) {
+
+  },  
 
   /**
    * 生命周期函数--监听页面加载
