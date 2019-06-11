@@ -1,1 +1,26 @@
 /* pages/resumedetail/resumedetail.wxss */
+.title{
+  text-align: center;
+  color: #2d8cf0;
+}
+
+.img {
+  display: flex;
+  justify-content: center;
+}
+
+.imgsize {
+  width: 200px;
+  height: 200px;
+}
+
+.icon-item{
+    display: block;
+    text-align: center;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.icon-item-name{
+    font-size: 15px;
+}

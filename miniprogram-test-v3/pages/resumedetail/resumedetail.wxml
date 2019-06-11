@@ -1,2 +1,22 @@
 <!--pages/resumedetail/resumedetail.wxml-->
-<text>pages/resumedetail/resumedetail.wxml</text>
+<view class='title'>
+<text>简历标题</text>
+</view>
+
+<view class='icon-item'>
+  <image src='{{resume.imgSrc}}' class='imgsize' wx:if='{{resume.showImg}}'></image>
+  <i-icon type='add' size='50' bindtap='selectImg' wx:if="{{resume.showImg==false}}"></i-icon>
+  <view class='icon-item-name' bindtap='selectImg'>选择图片</view>
+</view>
+
+<view>
+  <block wx:for='{{resume.questions}}' wx:key='{{title}}'>
+    <i-panel title='{{item.title}}'>
+    <i-input type='text' bindchange='handleInputChange' id='{{index}}'/>
+    </i-panel>
+  </block>
+</view>
+
+<view>
+  <i-button bind:click="handleSubmitClick" type='success' shape='circle'>提交</i-button>
+</view>

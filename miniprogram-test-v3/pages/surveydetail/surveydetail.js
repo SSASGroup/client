@@ -7,6 +7,7 @@ Page({
   data: {
     survey: {
       numOfQustions: 5,
+      id: 123,
       idOfUploader: 123,
       current: '1',
       questions: [
