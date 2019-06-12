@@ -1,1 +1,9 @@
 /* pages/releaseResume/releaseResume.wxss */
+.add {
+  display: flex;
+  justify-content: center;
+}
+
+.submit {
+  color: #19be6b;
+}

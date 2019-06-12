@@ -1,3 +1,12 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "i-icon": "../../dist/icon/index",
+    "i-panel": "../../dist/panel/index",
+    "i-input": "../../dist/input/index",
+    "i-button": "../../dist/button/index",
+    "i-radio-group": "../../dist/radio-group/index",
+    "i-radio": "../../dist/radio/index",
+    "i-toast": "../../dist/toast/index",
+    "i-cell": "../../dist/cell/index"
+  }
 }

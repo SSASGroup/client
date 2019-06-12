@@ -33,7 +33,7 @@ Page({
   },
 
   /**
-   * 
+   * 问卷名称change事件
    */
   handleTitleChange: function(e) {
     let that = this;
@@ -45,7 +45,7 @@ Page({
   },
 
   /**
-   * 
+   * 问卷描述change事件
    */
   handleDescriptionChange: function(e) {
     let that = this;

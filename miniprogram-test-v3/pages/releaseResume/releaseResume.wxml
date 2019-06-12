@@ -1,2 +1,36 @@
 <!--pages/releaseResume/releaseResume.wxml-->
-<text>pages/releaseResume/releaseResume.wxml</text>
+
+<view>
+<view>
+  <i-input title='简历名' type='text' bind:change='handleTitleChange'/>
+  <i-input title='简历描述' type='textarea' bind:change='handleDescriptionChange'/>
+</view>
+
+<view>
+  <block wx:for="{{resume.questions}}" wx:key="*item">
+    <i-panel>
+      <i-cell title="{{item}}"></i-cell>
+    </i-panel>
+    <!-- <text>{{item}}</text> -->
+  </block>
+</view>
+
+<view>
+  <i-panel wx:if='{{showQuestion}}'>
+    <i-input title='问题名称' type='text' bind:change='handleQuetionTitleChange'/>
+    <i-button bind:click='confirm' type='primary' shape='circle'>确认</i-button>
+  </i-panel>
+</view>
+
+<view class='add'>
+  <i-icon type='add' size='50' bindtap='addQuestion'></i-icon>
+</view>
+
+<view>
+  <i-button bind:click="handleSubmitClick" type='success' shape='circle'>提交</i-button>
+  <i-toast id='toast'/>
+</view>
+
+</view>
+
+
