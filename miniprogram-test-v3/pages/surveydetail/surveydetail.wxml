@@ -1,6 +1,6 @@
 <!--pages/surveydetail/surveydetail.wxml-->
 <view class='title'>
-<text >问卷标题</text>
+<text >{{survey.title}}</text>
 </view>
 
 <view>

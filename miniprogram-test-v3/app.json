@@ -2,11 +2,13 @@
   "pages":[
     "pages/home/home",
     "pages/resume/resume",
-    "pages/index/index",
+    "pages/mine/mine",
     "pages/surveydetail/surveydetail",
     "pages/resumedetail/resumedetail",
     "pages/logs/logs",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/releaseSurvey/releaseSurvey",
+    "pages/releaseResume/releaseResume"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -30,7 +32,7 @@
       },
       {
         "text": "我的",
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/mine/mine",
         "iconPath": "images/mine-gray.png",
         "selectedIconPath": "images/selected-mine.png"
       }

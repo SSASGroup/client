@@ -57,5 +57,17 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+
+  nvigateToRealaseSurvey: function(e) {
+    wx.navigateTo({
+      url: '/pages/releaseSurvey/releaseSurvey',
+    })
+  },
+
+  nvigateToReleaseResume: function(e) {
+    wx.navigateTo({
+      url: '/pages/releaseResume/releaseResume',
+    })
   }
 })

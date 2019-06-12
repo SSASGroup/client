@@ -1,46 +1,18 @@
-// pages/home/home.js
+// pages/releaseResume/releaseResume.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    surveys: [
-      { id: 1, title: 'task1', description: '问卷1' },
-      { id: 2, title: 'taks2', description: '问卷2' },
-      { id: 3, title: 'taks3', description: '问卷3' }
-    ]
-  },
 
-  search () {
-    wx.navigateTo({
-      url: '/pages/search/search',
-    })
-  },
-
-  wxSearchInput () {
-    this.search()
-  },
-
-  /*
-  跳转至问卷详情页面
-  */
-  nvigateToDetail() {
-    wx.navigateTo({
-      url: '/pages/surveydetail/surveydetail',
-    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      // wx.request({
-      //   url: 'http://localhost:8000/polls/2',
-      //   success: function(res) {
-      //     console.log(res.data)
-      //   }
-      // })
+
   },
 
   /**

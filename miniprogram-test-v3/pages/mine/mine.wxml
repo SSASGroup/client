@@ -10,5 +10,12 @@
   <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view>
-  <view>Hello {{name}}!</view>
+  
+</view>
+
+<view>
+  <i-panel>
+    <i-cell title='发布问卷' is-link bind:click='nvigateToRealaseSurvey'></i-cell>
+    <i-cell title='发布简历' is-link bind:click='nvigateToReleaseResume'></i-cell>
+  </i-panel>
 </view>

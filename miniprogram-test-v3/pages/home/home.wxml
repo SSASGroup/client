@@ -12,7 +12,7 @@
     <i-cell title="只显示箭头" is-link></i-cell>
   </block> -->
   
-    <block wx:for="{{tasks}}" wx:key="id">
+    <block wx:for="{{surveys}}" wx:key="id">
     <i-panel>
       <i-cell title="{{item.title}}" label="{{item.description}}" is-link bind:click='nvigateToDetail'></i-cell>
     </i-panel>

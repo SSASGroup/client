@@ -1,0 +1,41 @@
+<!--pages/releaseSurvey/releaseSurvey.wxml-->
+
+<view>
+<view>
+  <i-input title='问卷名' type='text' bind:change='handleTitleChange'/>
+  <i-input title='问卷描述' type='textarea' bind:change='handleDescriptionChange'/>
+</view>
+
+<view>
+  <block wx:for='{{survey.questions}}' wx:for-item='questions' wx:key="title">
+    <i-panel wx:if="{{questions.radio}}" title='{{questions.title}}'>
+      <i-radio-group>
+        <i-radio wx:for="{{questions.choices}}" value='{{item}}' wx:key="*this">
+        </i-radio>
+      </i-radio-group>
+    </i-panel>
+  </block>
+</view>
+
+<view>
+  <i-panel wx:if='{{showQuestion}}'>
+    <i-input title='问题名称' type='text' bind:change='handleQuetionTitleChange'/>
+    <i-input title='选项1' type='text' bind:change='handleChoice1Change'/>
+    <i-input title='选项2' type='text' bind:change='handleChoice2Change'/>
+    <i-input title='选项3' type='text' bind:change='handleChoice3Change'/>
+    <i-input title='选项4' type='text' bind:change='handleChoice4Change'/>
+    <i-button bind:click='confirm' type='primary' shape='circle'>确认</i-button>
+  </i-panel>
+</view>
+
+<view class='add'>
+  <i-icon type='add' size='50' bindtap='addQuestion'></i-icon>
+</view>
+
+<view>
+  <i-button bind:click="handleSubmitClick" type='success' shape='circle'>提交</i-button>
+  <i-toast id='toast'/>
+</view>
+
+</view>
+

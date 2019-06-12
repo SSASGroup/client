@@ -1,4 +1,6 @@
 // pages/surveydetail/surveydetail.js
+var app = getApp();
+
 Page({
 
   /**
@@ -6,20 +8,21 @@ Page({
    */
   data: {
     survey: {
-      numOfQustions: 5,
+      title: 'title',
+      description: '',
+      numOfQustions: 2,
       id: 123,
       idOfUploader: 123,
-      current: '1',
       questions: [
         { title: '问题1', 
           radio: true,
-          current: '1',
+          current: null,
           choices: [
           '1', '2', '3', '4'
         ]},
         { title: '问题2', 
           radio: false,
-          current: ['5', '6'], 
+          current: [], 
           choices: [
           '5', '6', '7'
         ]}
@@ -52,7 +55,7 @@ Page({
     let survey = that.data.survey;
     const index = survey.questions[id].current.indexOf(e.detail.value);
     index === -1 ? survey.questions[id].current.push(e.detail.value) : survey.questions[id].current.splice(index, 1);
-    this.setData({
+    that.setData({
       survey
     });
     // console.log(survey.questions[id].current)
@@ -63,13 +66,19 @@ Page({
   */
   handleSubmitClick: function(e) {
 
-  },  
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let that = this;
+    let survey = that.data.survey;
+    if(app.globalData.surveys.length > 0)
+      survey = app.globalData.surveys[0];
+    that.setData({
+      survey
+    })
   },
 
   /**
