@@ -1,5 +1,6 @@
 // pages/surveydetail/surveydetail.js
 var app = getApp();
+const { $Toast } = require('../../dist/base/index');
 
 Page({
 
@@ -8,25 +9,25 @@ Page({
    */
   data: {
     survey: {
-      title: 'title',
-      description: '',
-      numOfQustions: 2,
-      id: 123,
-      idOfUploader: 123,
-      questions: [
-        { title: '问题1', 
-          radio: true,
-          current: null,
-          choices: [
-          '1', '2', '3', '4'
-        ]},
-        { title: '问题2', 
-          radio: true,
-          current: null, 
-          choices: [
-          '5', '6', '7'
-        ]}
-      ]
+      // title: 'title',
+      // description: '',
+      // numOfQustions: 2,
+      // id: 123,
+      // idOfUploader: 123,
+      // questions: [
+      //   { title: '问题1', 
+      //     radio: true,
+      //     current: null,
+      //     choices: [
+      //     '1', '2', '3', '4'
+      //   ]},
+      //   { title: '问题2', 
+      //     radio: true,
+      //     current: null, 
+      //     choices: [
+      //     '5', '6', '7'
+      //   ]}
+      // ]
     }
   },
   
@@ -65,17 +66,46 @@ Page({
   提交问卷
   */
   handleSubmitClick: function(e) {
+    let that = this;
+    let survey = that.data.survey;
+    let questions = survey.questions;
+    for (let i = 0; i < questions.length; i++) {
+      if(questions[i].current == null) {
+        $Toast({
+          content: '请填写全部问题',
+          type: 'warning'
+        });
+      }
+    }
+    survey.nameOfUser = app.globalData.userInfo.nickName;
+    survey.answerer = app.globalData.openid;
+    that.setData({
+      survey
+    })
     console.log(this.data.survey);
+    wx.request({
+      url: 'http://lynb.cn1.utools.club/submitSurvey/',
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        answer: JSON.stringify(survey)
+      },
+      success: (res) => {
+        console.log(res)
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
+   * 获取从home传来的survey信息
    */
   onLoad: function (options) {
     let that = this;
     let survey = that.data.survey;
-    if(app.globalData.surveys.length > 0)
-      survey = app.globalData.surveys[0];
+    survey = JSON.parse(options.data)
     that.setData({
       survey
     })

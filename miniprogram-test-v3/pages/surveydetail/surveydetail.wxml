@@ -22,4 +22,5 @@
 
 <view>
   <i-button bind:click="handleSubmitClick" type='success' shape='circle'>提交</i-button>
+  <i-toast id='toast'/>
 </view>

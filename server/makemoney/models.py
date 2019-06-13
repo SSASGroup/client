@@ -7,7 +7,7 @@ from django.contrib.postgres.fields import ArrayField, JSONField
 class Users(models.Model):
     """docstring for User"""
     openid = models.CharField(max_length=100, primary_key=True)
-    money = models.DecimalField(max_digits=8, decimal_places=2, )
+    money = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
         return self.openid
@@ -25,3 +25,16 @@ class surveys(models.Model):
         Users, on_delete=models.CASCADE)
     reward = models.DecimalField(max_digits=8, decimal_places=2)
     questions = ArrayField(JSONField(default=dict))
+    stop = models.BooleanField(default=False)
+
+
+class answerOfsurvey(models.Model):
+    title = models.CharField(max_length=30)
+    # description = models.CharField(max_length=100, null=True)
+    numOfQuestions = models.IntegerField()
+    idOfReleaser = models.ForeignKey(
+        Users, on_delete=models.CASCADE)
+    idOfSurvey = models.IntegerField()
+    # reward = models.DecimalField(max_digits=8, decimal_places=2)
+    questions = ArrayField(JSONField(default=dict))
+    nameOfUser = models.CharField(max_length=100)

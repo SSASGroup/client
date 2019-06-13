@@ -29,9 +29,13 @@ Page({
   /*
   跳转至问卷详情页面
   */
-  nvigateToDetail() {
+  nvigateToDetail: function(e) {
+    console.log(e)
+    let id = e.target.id;
+    let that = this;
+    let survey = that.data.surveys[id]
     wx.navigateTo({
-      url: '/pages/surveydetail/surveydetail',
+      url: '/pages/surveydetail/surveydetail?data=' + JSON.stringify(survey)
     })
   },
 
@@ -62,8 +66,8 @@ Page({
   },
 
   getUserInfo: function(e) {
-    console.log(4)
-    console.log(e)
+    // console.log(4)
+    // console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.login()
   },
@@ -99,6 +103,8 @@ Page({
         })
       }
     });
+    
+    //向后台请求问卷
     let surveys = that.data.surveys;
     wx.request({
       url: 'http://lynb.cn1.utools.club/home/',
@@ -109,8 +115,7 @@ Page({
           surveys
         })
       }
-    })
-    
+    })   
   },
 
   /**

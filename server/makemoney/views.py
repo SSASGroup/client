@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import requests
 import json
+from decimal import Decimal
 from . import models
 
 # Create your views here.
@@ -38,17 +39,17 @@ def releaseSurvey(request):
         survey = json.loads(request.POST['survey'])
         print(survey, type(survey))
         user = models.Users.objects.get(openid=survey['idOfReleaser'])
-        S = models.surveys.objects.create(title=survey['title'], description=survey[
-                                          'description'], numOfQuestions=survey['numOfQuestions'],
-                                          idOfReleaser=user, reward=survey['reward'],
-                                          questions=survey['questions'])
+        models.surveys.objects.create(title=survey['title'], description=survey[
+            'description'], numOfQuestions=survey['numOfQuestions'],
+            idOfReleaser=user, reward=survey['reward'],
+            questions=survey['questions'])
         return HttpResponse('You post')
     return HttpResponse('You get')
 
 
 @csrf_exempt
 def home(request):
-    sureys = models.surveys.objects.all()
+    sureys = models.surveys.objects.all().filter(stop=False)
     res = []
     for s in sureys:
         values = {}
@@ -61,3 +62,23 @@ def home(request):
         values['questions'] = s.questions
         res.append(values)
     return HttpResponse(json.dumps(res), content_type="application/json")
+
+
+@csrf_exempt
+def submitSurvey(request):
+    if request.method == 'POST':
+        answer = json.loads(request.POST['answer'])
+        print(answer)
+        Releaser = models.Users.objects.get(openid=answer['idOfReleaser'])
+        print(Releaser.money)
+        if Releaser.money < answer['reward']:
+            return HttpResponse('The Publisher does not have enough balance!')
+        Releaser.money -= Decimal(answer['reward'])
+        Answerer = models.Users.objects.get(openid=answer['answerer'])
+        Answerer.money -= Decimal(answer['reward'])
+        models.answerOfsurvey.objects.create(title=answer['title'], numOfQuestions=answer['numOfQuestions'],
+                                             idOfReleaser=Releaser, idOfSurvey=answer[
+                                                 'id'], questions=answer['questions'],
+                                             nameOfUser=answer['nameOfUser'])
+        return HttpResponse('You get payed!')
+    return HttpResponse('POST')
