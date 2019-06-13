@@ -1,21 +1,23 @@
 <!--pages/home/home.wxml-->
-<view class="weui-search-bar">
-   <view class="weui-search-bar__form">
-    <view class="weui-search-bar__box">
-      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-      <input type="text" class="weui-search-bar__input" placeholder="输入任务关键词等" bindtap='search' disabled='true'/>
+
+<view wx:if="{{!login && canIUse}}">
+  <i-button type="primary" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</i-button>
+</view>
+
+<view wx:else>
+  <view class="weui-search-bar">
+     <view class="weui-search-bar__form">
+      <view class="weui-search-bar__box">
+        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+        <input type="text" class="weui-search-bar__input" placeholder="输入任务关键词等" bindtap='search' disabled='true'/>
+      </view>
     </view>
   </view>
-</view>
-<view>
-  <!-- <block wx:for="{{tasks}}" wx:key="id">
-    <i-cell title="只显示箭头" is-link></i-cell>
-  </block> -->
-  
-    <block wx:for="{{surveys}}" wx:key="id">
-    <i-panel>
-      <i-cell title="{{item.title}}" label="{{item.description}}" is-link bind:click='nvigateToDetail'></i-cell>
-    </i-panel>
-    </block>
-  
+  <view>
+      <block wx:for="{{surveys}}" wx:key="id">
+      <i-panel>
+        <i-cell title="{{item.title}}" label="{{item.description}}" is-link bind:click='nvigateToDetail'></i-cell>
+      </i-panel>
+      </block>
+  </view>
 </view>

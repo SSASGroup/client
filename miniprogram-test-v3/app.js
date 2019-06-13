@@ -6,18 +6,36 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    /*
     // 登录
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log(res)
+        console.log(res);
+        wx.request({
+          url: 'http://localhost:8000/login/',
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          data: {
+            code: res.code
+          },
+          success: function(res1) {
+            console.log(res1);       
+          },
+          fail: function(error) {console.log('fail')}
+        })
       }
     })
+    */
+    
     // 获取用户信息
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          console.log('get')
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
@@ -33,6 +51,7 @@ App({
         }
       }
     })
+    
   },
   globalData: {
     userInfo: null,
