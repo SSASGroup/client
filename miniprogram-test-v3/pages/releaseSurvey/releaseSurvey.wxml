@@ -4,6 +4,7 @@
 <view>
   <i-input title='问卷名' type='text' bind:change='handleTitleChange'/>
   <i-input title='问卷描述' type='textarea' bind:change='handleDescriptionChange'/>
+  <i-input title="每份报酬" type="digit" bind:change='handleRewardChange'></i-input>
 </view>
 
 <view>

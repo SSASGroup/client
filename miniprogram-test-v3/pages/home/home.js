@@ -10,9 +10,9 @@ Page({
     login: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     surveys: [
-      { id: 1, title: 'task1', description: '问卷1' },
-      { id: 2, title: 'taks2', description: '问卷2' },
-      { id: 3, title: 'taks3', description: '问卷3' }
+      // { id: 1, title: 'task1', description: '问卷1' },
+      // { id: 2, title: 'taks2', description: '问卷2' },
+      // { id: 3, title: 'taks3', description: '问卷3' }
     ]
   },
 
@@ -72,6 +72,7 @@ Page({
    * 
    */
   login: function () {
+    let that = this;
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -88,15 +89,28 @@ Page({
             // avatarUrl: app.globalData.userInfo.avatarUrl,
           },
           success: function(res1) {
-            console.log(res1);       
+            console.log(res1);
+            app.globalData.openid = res1.data;
+            that.setData({
+              login: true
+            });   
           },
           fail: function(error) {console.log('fail')}
         })
       }
     });
-    this.setData({
-      login: true
+    let surveys = that.data.surveys;
+    wx.request({
+      url: 'http://lynb.cn1.utools.club/home/',
+      success: function(res) {
+        console.log(res.data)
+        surveys = res.data;
+        that.setData({
+          surveys
+        })
+      }
     })
+    
   },
 
   /**

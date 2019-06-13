@@ -18,9 +18,10 @@ Page({
     survey: {
       title: null,
       description: null,
-      numOfQustions: 0,
-      id: 123,
-      idOfUploader: 123,
+      numOfQuestions: 0,
+      // id: 123,
+      idOfReleaser: null,
+      reward: null,
       questions: [
         // {
         //   title: '1',
@@ -51,6 +52,15 @@ Page({
     let that = this;
     let survey = that.data.survey;
     survey.description = e.detail.detail.value;
+    that.setData({
+      survey
+    })
+  },
+  
+  handleRewardChange: function(e) {
+    let that = this;
+    let survey = that.data.survey;
+    survey.reward = e.detail.detail.value;
     that.setData({
       survey
     })
@@ -132,7 +142,7 @@ Page({
   },
 
   /**
-   * fxxk
+   * 确认问题
    */
   confirm: function(e) {
     console.log('confirm');
@@ -147,8 +157,8 @@ Page({
         });
       }
     else {
-      survey.questions[survey.numOfQustions] = temQuestion;
-      survey.numOfQustions += 1;
+      survey.questions[survey.numOfQuestions] = temQuestion;
+      survey.numOfQuestions += 1;
       temQuestion = {
         title: null,
         radio: true,
@@ -172,15 +182,36 @@ Page({
     console.log('submit');
     let that = this;
     let survey = that.data.survey;
-    if(survey.title == null || survey.description == null || survey.questions.length == 0) {
+    if(survey.title == null || survey.description == null || survey.questions.length == 0 || survey.reward == null) {
       $Toast({
         content: '请输入正确信息',
         type: 'warning'
       });
     }
     else {
+      survey.idOfReleaser = app.globalData.openid;
       console.log(survey);
-      app.globalData.surveys.push(survey);
+      wx.request({
+        // 必需
+        url: 'http://lynb.cn1.utools.club/releaseSurvey/',
+        data: {
+          survey: JSON.stringify(survey)
+        },
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        success: (res) => {
+          console.log(res)
+        },
+        fail: (res) => {
+          
+        },
+        complete: (res) => {
+          
+        }
+      });
+      
     }
   },
 

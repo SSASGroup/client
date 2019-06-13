@@ -20,6 +20,8 @@ class Test(models.Model):
 class surveys(models.Model):
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=100, null=True)
-    idOfReleaser = models.ForeignKey('Users', to_field=Users.openid)
     numOfQuestions = models.IntegerField()
-    questions = ArrayField(JSONField(default={}))
+    idOfReleaser = models.ForeignKey(
+        Users, on_delete=models.CASCADE)
+    reward = models.DecimalField(max_digits=8, decimal_places=2)
+    questions = ArrayField(JSONField(default=dict))

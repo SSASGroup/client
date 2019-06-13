@@ -21,8 +21,8 @@ Page({
           '1', '2', '3', '4'
         ]},
         { title: '问题2', 
-          radio: false,
-          current: [], 
+          radio: true,
+          current: null, 
           choices: [
           '5', '6', '7'
         ]}
@@ -65,7 +65,7 @@ Page({
   提交问卷
   */
   handleSubmitClick: function(e) {
-
+    console.log(this.data.survey);
   },
 
   /**
