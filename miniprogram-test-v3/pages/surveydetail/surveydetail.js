@@ -69,33 +69,50 @@ Page({
     let that = this;
     let survey = that.data.survey;
     let questions = survey.questions;
+    let flag = false;
     for (let i = 0; i < questions.length; i++) {
       if(questions[i].current == null) {
-        $Toast({
-          content: '请填写全部问题',
-          type: 'warning'
-        });
+        flag = true;
+        break;
       }
     }
-    survey.nameOfUser = app.globalData.userInfo.nickName;
-    survey.answerer = app.globalData.openid;
-    that.setData({
-      survey
-    })
-    console.log(this.data.survey);
-    wx.request({
-      url: 'http://lynb.cn1.utools.club/submitSurvey/',
-      method: 'POST',
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        answer: JSON.stringify(survey)
-      },
-      success: (res) => {
-        console.log(res)
-      }
-    })
+    if(flag) {
+      $Toast({
+        content: '请填写全部问题',
+        type: 'warning'
+      });
+    }else {
+
+      survey.nameOfUser = app.globalData.userInfo.nickName;
+      survey.answerer = app.globalData.openid;
+      that.setData({
+        survey
+      })
+      console.log(this.data.survey);
+      wx.request({
+        // url: 'http://lynb.cn1.utools.club/submitSurvey/',
+        url: 'http://localhost:8000/submitSurvey/',
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          answer: JSON.stringify(survey)
+        },
+        success: (res) => {
+          console.log(res)
+          let pages = getCurrentPages();
+          let prevPage = pages[pages.length - 2];
+          prevPage.setData({
+            resOfAnswer: res.data
+          })
+          console.log(prevPage.data.resOfAnswer)
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
+    }
   },
 
   /**

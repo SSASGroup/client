@@ -1,0 +1,10 @@
+<!--pages/mySurvey/mySurvey.wxml-->
+<view >
+    <view>
+      <block wx:for="{{surveys}}" wx:key="id">
+      <i-panel>
+        <i-cell title="{{item.title}}" label="{{item.description}}" is-link bind:click='nvigateToAnswerList' id="{{index}}"></i-cell>
+      </i-panel>
+      </block>
+  </view>
+</view>

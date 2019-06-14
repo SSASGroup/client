@@ -1,5 +1,6 @@
 // pages/home/home.js
 var app = getApp();
+const { $Toast } = require('../../dist/base/index');
 
 Page({
 
@@ -8,6 +9,7 @@ Page({
    */
   data: {
     login: false,
+    resOfAnswer: 0,  //用于填写完问卷之后返回的操作
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     surveys: [
       // { id: 1, title: 'task1', description: '问卷1' },
@@ -129,7 +131,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let that = this;
+    console.log(that.data.resOfAnswer)
+    if(that.data.resOfAnswer == 'payed') {
+      $Toast({
+        content: 'You get paid！',
+        type: 'success'
+      });
+      that.setData({
+        resOfAnswer: 0
+      })
+    }else if(that.data.resOfAnswer == 'bad') {
+      $Toast({
+        content: '发布者余额不足',
+        type: 'warning'
+      });
+      that.setData({
+        resOfAnswer: 0
+      })
+    }
   },
 
   /**

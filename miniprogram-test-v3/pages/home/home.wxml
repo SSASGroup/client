@@ -20,4 +20,5 @@
       </i-panel>
       </block>
   </view>
+  <i-toast id='toast'/>
 </view>

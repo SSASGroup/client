@@ -49,9 +49,9 @@ def releaseSurvey(request):
 
 @csrf_exempt
 def home(request):
-    sureys = models.surveys.objects.all().filter(stop=False)
+    surveys = models.surveys.objects.all().filter(stop=False)
     res = []
-    for s in sureys:
+    for s in surveys:
         values = {}
         values['id'] = s.id
         values['title'] = s.title
@@ -72,13 +72,62 @@ def submitSurvey(request):
         Releaser = models.Users.objects.get(openid=answer['idOfReleaser'])
         print(Releaser.money)
         if Releaser.money < answer['reward']:
-            return HttpResponse('The Publisher does not have enough balance!')
+            return HttpResponse('bad')
         Releaser.money -= Decimal(answer['reward'])
+        Releaser.save()
         Answerer = models.Users.objects.get(openid=answer['answerer'])
-        Answerer.money -= Decimal(answer['reward'])
+        Answerer.money += Decimal(answer['reward'])
+        Answerer.save()
         models.answerOfsurvey.objects.create(title=answer['title'], numOfQuestions=answer['numOfQuestions'],
                                              idOfReleaser=Releaser, idOfSurvey=answer[
                                                  'id'], questions=answer['questions'],
                                              nameOfUser=answer['nameOfUser'])
-        return HttpResponse('You get payed!')
+        print('return?')
+        return HttpResponse('payed')
     return HttpResponse('POST')
+
+
+@csrf_exempt
+def mySurvey(request):
+    if request.method == 'POST':
+        openid = request.POST['id']
+        print(openid)
+        user = models.Users.objects.get(openid=openid)
+        surveys = models.surveys.objects.all().filter(idOfReleaser=user)
+        res = []
+        for s in surveys:
+            values = {}
+            values['id'] = s.id
+            values['title'] = s.title
+            values['description'] = s.description
+            res.append(values)
+        return HttpResponse(json.dumps(res), content_type="application/json")
+    return HttpResponse('mySurvey')
+
+
+@csrf_exempt
+def surveyAnswerList(request):
+    if request.method == 'POST':
+        idOfSurvey = request.POST['id']
+        answers = models.answerOfsurvey.objects.all().filter(idOfSurvey=idOfSurvey)
+        res = []
+        for s in answers:
+            values = {}
+            values['nameOfUser'] = s.nameOfUser
+            values['title'] = s.title
+            values['questions'] = s.questions
+            values['id'] = s.id
+            res.append(values)
+        return HttpResponse(json.dumps(res), content_type="application/json")
+    return HttpResponse('surveyAnswerList')
+
+
+@csrf_exempt
+def stopSurvey(request):
+    if request.method == 'POST':
+        idOfSurvey = request.POST['id']
+        survey = models.surveys.objects.get(id=idOfSurvey)
+        survey.stop = True
+        survey.save()
+        return HttpResponse('Stop survey!')
+    return HttpResponse('stopSurvey')

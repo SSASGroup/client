@@ -13,7 +13,10 @@
 
 <view>
   <i-panel>
+    <i-cell title='我的余额' is-link bind:click='nvigateToMoney'></i-cell>
     <i-cell title='发布问卷' is-link bind:click='nvigateToRealaseSurvey'></i-cell>
+    <i-cell title='我的问卷' is-link bind:click='nvigateToMySurvey'></i-cell>
     <i-cell title='发布简历' is-link bind:click='nvigateToReleaseResume'></i-cell>
+    <i-cell title='我的简历' is-link bind:click='nvigateToMyResume'></i-cell>
   </i-panel>
 </view>

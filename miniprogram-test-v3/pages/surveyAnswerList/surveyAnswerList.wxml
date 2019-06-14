@@ -1,0 +1,15 @@
+<!--pages/surveyAnswerList/surveyAnswerList.wxml-->
+<view>
+  <view>
+    <i-button type='error' shape='circle' bind:click='stopSurvey'>停止回答</i-button>
+  </view>
+  <!-- 下一步surveyAnswerDetail -->
+  <view>
+    <block wx:for="{{answersOfsurvey}}" wx:key="id">
+      <i-panel>
+        <i-cell title="{{item.nameOfUser}}" isLink bind:click="nvigateToAnswerDetail" id='{{index}}'></i-cell>
+      </i-panel>
+    </block>
+  </view>
+  <i-toast id="toast"></i-toast>
+</view>

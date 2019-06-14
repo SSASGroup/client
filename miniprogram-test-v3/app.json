@@ -8,7 +8,11 @@
     "pages/logs/logs",
     "pages/search/search",
     "pages/releaseSurvey/releaseSurvey",
-    "pages/releaseResume/releaseResume"
+    "pages/releaseResume/releaseResume",
+    "pages/mySurvey/mySurvey",
+    "pages/myResume/myResume",
+    "pages/surveyAnswerList/surveyAnswerList",
+    "pages/surveyAnswerDetail/surveyAnswerDetail"
   ],
   "window":{
     "backgroundTextStyle":"light",

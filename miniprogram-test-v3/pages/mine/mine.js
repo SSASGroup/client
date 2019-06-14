@@ -54,8 +54,8 @@ Page({
   },
 
   getUserInfo: function(e) {
-    console.log(4)
-    console.log(e)
+    // console.log(4)
+    // console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -72,6 +72,15 @@ Page({
   nvigateToReleaseResume: function(e) {
     wx.navigateTo({
       url: '/pages/releaseResume/releaseResume',
+    })
+  },
+
+  /**
+   * 跳转至我发布的问卷页面
+   */
+  nvigateToMySurvey: function(e) {
+    wx.navigateTo({
+      url: '/pages/mySurvey/mySurvey'
     })
   }
 })

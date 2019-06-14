@@ -202,7 +202,10 @@ Page({
           'content-type': 'application/x-www-form-urlencoded'
         },
         success: (res) => {
-          console.log(res)
+          console.log(res);
+          wx.navigateBack({
+            delta: 1
+          })
         },
         fail: (res) => {
           
