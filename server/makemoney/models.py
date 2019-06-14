@@ -8,13 +8,15 @@ class Users(models.Model):
     """docstring for User"""
     openid = models.CharField(max_length=100, primary_key=True)
     money = models.DecimalField(max_digits=8, decimal_places=2)
+    idOfSurveyAnswered = ArrayField(models.IntegerField(), default=list, blank=True)
+    idOfResumeAnswered = ArrayField(models.IntegerField(), default=list, blank=True)
 
     def __str__(self):
         return self.openid
 
 
-class Test(models.Model):
-    name = models.CharField(max_length=10)
+# class Test(models.Model):
+#     name = models.CharField(max_length=10)
 
 
 class surveys(models.Model):
@@ -38,3 +40,21 @@ class answerOfsurvey(models.Model):
     # reward = models.DecimalField(max_digits=8, decimal_places=2)
     questions = ArrayField(JSONField(default=dict))
     nameOfUser = models.CharField(max_length=100)
+
+
+class resumes(models.Model):
+    title = models.CharField(max_length=30)
+    description = models.CharField(max_length=100)
+    idOfReleaser = models.CharField(max_length=100)
+    reward = models.DecimalField(max_digits=8, decimal_places=2)
+    questions = ArrayField(JSONField(default=dict))
+    stop = models.BooleanField(default=False)
+
+
+# class answerOfresume(models.Model):
+#     title = models.CharField(max_length=30)
+#     idOfReleaser = models.CharField(max_length=100)
+#     idOfResume = models.IntegerField()
+#     questions = ArrayField(models.CharField(max_length=100))
+#     nameOfUser = models.CharField(max_length=100)
+    # img

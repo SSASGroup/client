@@ -13,8 +13,8 @@ Page({
       showImg: false,
       imgSrc: 'http://www.sysu.edu.cn/2012/images/content/2012-11/20121109221446303940.jpg',
       questions: [
-        {title: '问题1'},
-        {title: '问题2'}
+        {title: '问题1', answer: null},
+        {title: '问题2', answer: null}
       ],
       answers: []
     }

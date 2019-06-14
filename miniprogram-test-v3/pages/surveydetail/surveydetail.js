@@ -90,8 +90,8 @@ Page({
       })
       console.log(this.data.survey);
       wx.request({
-        // url: 'http://lynb.cn1.utools.club/submitSurvey/',
-        url: 'http://localhost:8000/submitSurvey/',
+        url: 'http://lynb.cn1.utools.club/submitSurvey/',
+        // url: 'http://localhost:8000/submitSurvey/',
         method: 'POST',
         header: {
           'content-type': 'application/x-www-form-urlencoded'

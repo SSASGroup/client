@@ -9,11 +9,15 @@ Page({
    */
   data: {
     showQuestion: false,
-    temQuestion: null,
+    temQuestion: {
+      title: null,
+      answer: null
+    },
     resume: {
       title: null,
-      publisher_id: null,
+      idOfReleaser: null,
       description: null,
+      reward: 0,
       questions: [
         
       ]  
@@ -45,6 +49,15 @@ Page({
     })
   },
 
+  handleRewardChange: function(e) {
+    let that = this;
+    let resume = that.data.resume;
+    resume.reward = e.detail.detail.value;
+    that.setData({
+      resume
+    })
+  },
+
   /**
    * 添加问题
    */
@@ -62,7 +75,7 @@ Page({
     console.log(e);
     let that = this;
     let temQuestion = that.data.temQuestion;
-    temQuestion = e.detail.detail.value;
+    temQuestion.title = e.detail.detail.value;
     that.setData({
       temQuestion
     })
@@ -76,7 +89,8 @@ Page({
     let that = this;
     let resume = that.data.resume;
     let temQuestion = that.data.temQuestion;
-    if (temQuestion == null) {
+    console.log(temQuestion)
+    if (temQuestion.title == null) {
         $Toast({
           content: '请输入正确信息',
           type: 'warning'
@@ -84,12 +98,12 @@ Page({
       }
     else {
       resume.questions.push(temQuestion);
-      temQuestion = null;
+      // temQuestion.title = null;
       console.log(resume);
       console.log(temQuestion);
       that.setData({
         resume: resume,
-        temQuestion: temQuestion,
+        temQuestion: {title: null, answer: null},
         showQuestion: false
       })
     }
@@ -102,15 +116,31 @@ Page({
     console.log('submit');
     let that = this;
     let resume = that.data.resume;
-    if(resume.title == null || resume.description == null || resume.questions.length == 0) {
+    if(resume.title == null || resume.description == null || resume.questions.length == 0 || resume.reward == null) {
       $Toast({
         content: '请输入正确信息',
         type: 'warning'
       });
     }
     else {
-      console.log(resume);
-      app.globalData.resumes.push(resume);
+      resume.idOfReleaser = app.globalData.openid;
+      console.log(resume)
+      wx.request({
+        url: 'http://lynb.cn1.utools.club/releaseResume/',
+        method: 'POST',
+        data: {
+          resume: JSON.stringify(resume)
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        success: function(res) {
+          console.log(res.data);
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      })
     }
   },
 

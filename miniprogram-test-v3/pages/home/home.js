@@ -95,29 +95,55 @@ Page({
             // avatarUrl: app.globalData.userInfo.avatarUrl,
           },
           success: function(res1) {
-            console.log(res1);
+            // console.log(res1);
             app.globalData.openid = res1.data;
             that.setData({
               login: true
-            });   
+            });
+            console.log(res1)
+            // 向后台请求问卷
+            let surveys = that.data.surveys;
+            wx.request({
+              url: 'http://lynb.cn1.utools.club/home/',
+              method: 'POST',
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              data: {
+                idOfReleaser: res1.data
+              },
+              success: function(res) {
+                console.log(res.data)
+                surveys = res.data;
+                that.setData({
+                  surveys
+                })
+              }
+            })  
           },
           fail: function(error) {console.log('fail')}
         })
       }
     });
-    
-    //向后台请求问卷
-    let surveys = that.data.surveys;
-    wx.request({
-      url: 'http://lynb.cn1.utools.club/home/',
-      success: function(res) {
-        console.log(res.data)
-        surveys = res.data;
-        that.setData({
-          surveys
-        })
-      }
-    })   
+    // console.log(app.globalData)
+    // let surveys = that.data.surveys;
+    // wx.request({
+    //   url: 'http://lynb.cn1.utools.club/home/',
+    //   method: 'POST',
+    //   header: {
+    //     'content-type': 'application/x-www-form-urlencoded'
+    //   },
+    //   data: {
+    //     idOfReleaser: app.globalData.openid
+    //   },
+    //   success: function(res) {
+    //     console.log(res.data)
+    //     surveys = res.data;
+    //     that.setData({
+    //       surveys
+    //     })
+    //   }
+    // })
   },
 
   /**
