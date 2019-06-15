@@ -1,22 +1,23 @@
 // pages/resumedetail/resumedetail.js
+var app = getApp();
+const { $Toast } = require('../../dist/base/index');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    img: '',
+    imgSrc: null,
+    showImg: false,
     resume: {
-      title: '简历title',
-      idOfUploader: 123,
-      id: 123,
-      showImg: false,
-      imgSrc: 'http://www.sysu.edu.cn/2012/images/content/2012-11/20121109221446303940.jpg',
-      questions: [
-        {title: '问题1', answer: null},
-        {title: '问题2', answer: null}
-      ],
-      answers: []
+      // title: '简历title',
+      // idOfUploader: 123,
+      // id: 123,
+      // showImg: false,
+      // imgSrc: null,
+      // questions: [],
+      // answers: []
     }
   },
 
@@ -26,7 +27,6 @@ Page({
    */
   selectImg: function() {
     let that = this;
-    let resume = that.data.resume;
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
@@ -34,11 +34,9 @@ Page({
       success(res) {
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths;
-        // console.log(tempFilePaths);
-        resume.imgSrc = tempFilePaths[0];
-        resume.showImg = true;
         that.setData({
-          resume
+          imgSrc: tempFilePaths[0],
+          showImg: true
         });
       }
     });
@@ -51,11 +49,9 @@ Page({
   handleInputChange: function(e) {
     let that = this;
     let resume = that.data.resume;
-    console.log(e)
-    let id = e.target.id;
+    let id = parseInt(e.target.id);
     console.log(id)
-    console.log(resume.answers)
-    resume.answers[id] = e.detail.detail.value;
+    resume.questions[id].answer = e.detail.detail.value;
     that.setData({
       resume
     });
@@ -65,16 +61,43 @@ Page({
    * 提交简历
    */
   handleSubmitClick: function(e) {
-
+    let that = this;
+    if(that.data.imgSrc == null) {
+      $Toast({
+        content: '请选择照片',
+        type: 'warning'
+      });
+    }else {
+      let flag = false;//判断有没有填写全部问题
+      let questions = that.data.resume.questions;
+      for (let i = 0; i < questions.length; i++) {
+        if(questions[i].answer == null) {
+          flag = true;
+          break;
+        }
+      }
+      if(flag) {
+        $Toast({
+          content: '请填写全部问题',
+          type: 'warning'
+        });
+      }else {
+        let resume = that.data.resume;
+        
+        console.log(resume)
+      }
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
+   * 获取从home传来的resume信息
    */
   onLoad: function (options) {
     let that = this;
     let resume = that.data.resume;
-    resume.answers = new Array(resume.questions.length);
+    resume = JSON.parse(options.data)
+    console.log(options)
     that.setData({
       resume
     });

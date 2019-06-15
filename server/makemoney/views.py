@@ -69,12 +69,12 @@ def home(request):
     所以最终决定还是不去掉了
     """
     if request.method == 'POST':
-        idOfReleaser = request.POST['idOfReleaser']
+        idOfUser = request.POST['idOfUser']
         surveys = models.surveys.objects.all().filter(stop=False)
-        # .exclude(idOfReleaser=idOfReleaser)
+        # .exclude(idOfReleaser=idOfUser)
         # print('POST', request.POST)
         idOfSurveyAnswered = models.Users.objects.get(
-            openid=idOfReleaser).idOfSurveyAnswered
+            openid=idOfUser).idOfSurveyAnswered
         print(idOfSurveyAnswered)
         for id in idOfSurveyAnswered:
             surveys = surveys.exclude(id=id)
@@ -99,10 +99,10 @@ def resume(request):
     获取简历列表，思路和上面获取问卷的思路一样，也是只除去已经填过的简历
     """
     if request.method == 'POST':
-        idOfReleaser = request.POST['idOfReleaser']
+        idOfUser = request.POST['idOfUser']
         resumes = models.resumes.objects.all().filter(stop=False)
         idOfResumeAnswered = models.Users.objects.get(
-            openid=idOfReleaser).idOfResumeAnswered
+            openid=idOfUser).idOfResumeAnswered
         for id in idOfResumeAnswered:
             resumes = resumes.exclude(id=id)
         res = []

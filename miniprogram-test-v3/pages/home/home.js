@@ -32,7 +32,7 @@ Page({
   跳转至问卷详情页面
   */
   nvigateToDetail: function(e) {
-    console.log(e)
+    // console.log(e)
     let id = e.target.id;
     let that = this;
     let survey = that.data.surveys[id]
@@ -110,7 +110,7 @@ Page({
                 'content-type': 'application/x-www-form-urlencoded'
               },
               data: {
-                idOfReleaser: res1.data
+                idOfUser: res1.data
               },
               success: function(res) {
                 console.log(res.data)
@@ -125,25 +125,6 @@ Page({
         })
       }
     });
-    // console.log(app.globalData)
-    // let surveys = that.data.surveys;
-    // wx.request({
-    //   url: 'http://lynb.cn1.utools.club/home/',
-    //   method: 'POST',
-    //   header: {
-    //     'content-type': 'application/x-www-form-urlencoded'
-    //   },
-    //   data: {
-    //     idOfReleaser: app.globalData.openid
-    //   },
-    //   success: function(res) {
-    //     console.log(res.data)
-    //     surveys = res.data;
-    //     that.setData({
-    //       surveys
-    //     })
-    //   }
-    // })
   },
 
   /**
@@ -196,7 +177,26 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    let that = this;
+    let surveys = that.data.surveys;
+    wx.request({
+      url: 'http://lynb.cn1.utools.club/home/',
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        idOfUser: app.globalData.openid
+      },
+      success: function(res) {
+        console.log(res.data)
+        surveys = res.data;
+        that.setData({
+          surveys
+        })
+        wx.stopPullDownRefresh()
+      }
+    })  
   },
 
   /**

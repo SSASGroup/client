@@ -1,15 +1,13 @@
 // pages/home/home.js
+var app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    resumes: [
-      { id: 1, title: '简历1', description: '学生会招新' },
-      { id: 2, title: '简历2', description: '团委招新' },
-      { id: 3, title: '简历3', description: '院队招新' }
-    ]
+    resumes: []
   },
 
   search() {
@@ -25,9 +23,16 @@ Page({
   /*
   跳转至简历详情页面
   */
-  nvigateToDetail() {
+  nvigateToDetail: function(e) {
+    let id = parseInt(e.target.id);
+    let that = this;
+    // console.log(id);
+    // console.log(that.data)
+    let resume = that.data.resumes[id]
+    // console.log(resume)
+    console.log(JSON.stringify(resume))
     wx.navigateTo({
-      url: '/pages/resumedetail/resumedetail',
+      url: '/pages/resumedetail/resumedetail?data=' + JSON.stringify(resume),
     })
   },
 
@@ -35,12 +40,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // wx.request({
-    //   url: 'http://localhost:8000/polls/2',
-    //   success: function(res) {
-    //     console.log(res.data)
-    //   }
-    // })
+    let that = this;
+    wx.request({
+      url: app.globalData.HOST + 'resume/',
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        idOfUser: app.globalData.openid
+      },
+      success: function(res) {
+        console.log(res.data)
+        that.setData({
+          resumes: res.data
+        })
+      }
+    })
+
   },
 
   /**
@@ -75,7 +92,24 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    let that = this;
+    wx.request({
+      url: app.globalData.HOST + 'resume/',
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        idOfUser: app.globalData.openid
+      },
+      success: function(res) {
+        console.log(res.data)
+        that.setData({
+          resumes: res.data
+        })
+        wx.stopPullDownRefresh()
+      }
+    })
   },
 
   /**

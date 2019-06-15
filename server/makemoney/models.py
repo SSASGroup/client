@@ -51,10 +51,10 @@ class resumes(models.Model):
     stop = models.BooleanField(default=False)
 
 
-# class answerOfresume(models.Model):
-#     title = models.CharField(max_length=30)
-#     idOfReleaser = models.CharField(max_length=100)
-#     idOfResume = models.IntegerField()
-#     questions = ArrayField(models.CharField(max_length=100))
-#     nameOfUser = models.CharField(max_length=100)
-    # img
+class answerOfresume(models.Model):
+    title = models.CharField(max_length=30)
+    idOfReleaser = models.CharField(max_length=100)
+    idOfResume = models.IntegerField()
+    questions = ArrayField(models.CharField(max_length=100))
+    nameOfUser = models.CharField(max_length=100)
+    photo = models.ImageField(upload_to='images/', blank=True)

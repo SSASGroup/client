@@ -9,5 +9,6 @@ urlpatterns = [
     path('mySurvey/', views.mySurvey),
     path('surveyAnswerList/', views.surveyAnswerList),
     path('stopSurvey/', views.stopSurvey),
-    path('releaseResume/', views.releaseResume)
+    path('releaseResume/', views.releaseResume),
+    path('resume/', views.resume)
 ]

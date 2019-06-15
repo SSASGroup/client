@@ -14,7 +14,8 @@
   
     <block wx:for="{{resumes}}" wx:key="id">
     <i-panel>
-      <i-cell title="{{item.title}}" label="{{item.description}}" is-link bind:click='nvigateToDetail'></i-cell>
+      <i-cell title="{{item.title}}" label="{{item.description}}" value="{{item.reward}}" is-link bind:click='nvigateToDetail' id="{{index}}">
+      </i-cell>
     </i-panel>
     </block>
   

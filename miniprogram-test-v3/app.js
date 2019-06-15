@@ -55,7 +55,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    surveys: [],
-    resumes: []
+    openid: null,
+    HOST: 'http://lynb.cn1.utools.club/'
   }
 })

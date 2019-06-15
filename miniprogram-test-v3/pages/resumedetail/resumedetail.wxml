@@ -4,8 +4,8 @@
 </view>
 
 <view class='icon-item'>
-  <image src='{{resume.imgSrc}}' class='imgsize' wx:if='{{resume.showImg}}'></image>
-  <i-icon type='add' size='50' bindtap='selectImg' wx:if="{{resume.showImg==false}}"></i-icon>
+  <image src='{{imgSrc}}' class='imgsize' wx:if='{{showImg}}'></image>
+  <i-icon type='add' size='50' bindtap='selectImg' wx:if="{{showImg==false}}"></i-icon>
   <view class='icon-item-name' bindtap='selectImg'>选择图片</view>
 </view>
 
@@ -19,4 +19,5 @@
 
 <view>
   <i-button bind:click="handleSubmitClick" type='success' shape='circle'>提交</i-button>
+  <i-toast id='toast'/>
 </view>
