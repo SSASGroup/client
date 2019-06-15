@@ -85,13 +85,20 @@ Page({
         let answer = that.data.resume;
         answer.nameOfUser = app.globalData.userInfo.nickName;
         answer.answerer = app.globalData.openid;
-        wx.request({
+        // wx.uploadFile({
+        //   url: app.globalData.HOST + 'submitResumePhoto/',
+        //   filePath: that.data.imgSrc,
+        //   name: 'img',
+        //   formData: {
+        //     test: JSON.stringify(answer)
+        //   }
+        // })
+        
+        wx.uploadFile({
           url: app.globalData.HOST + 'submitResume/',
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          data: {
+          filePath: that.data.imgSrc,
+          name: 'img',
+          formData: {
             answer: JSON.stringify(answer)
           },
           success: (res) => {
@@ -101,12 +108,12 @@ Page({
             prevPage.setData({
               resOfAnswer: res.data
             })
-            console.log(prevPage.data.resOfAnswer)
             wx.navigateBack({
               delta: 1
             })
           }
         })
+        
       }
     }
   },

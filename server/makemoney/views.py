@@ -158,11 +158,23 @@ def submitResume(request):
         Answerer.money += Decimal(answer['reward'])
         Answerer.idOfResumeAnswered.append(answer['id'])
         Answerer.save()
+        photo = request.FILES.get('img')
         models.answerOfresume.objects.create(title=answer['title'], idOfReleaser=Releaser,
                                              idOfResume=answer['id'], questions=answer['questions'],
-                                             nameOfUser=answer['nameOfUser'])
+                                             nameOfUser=answer['nameOfUser'], photo=photo)
         return HttpResponse('payed')
     return HttpResponse('submitResume')
+
+
+@csrf_exempt
+def submitResumePhoto(request):
+    if request.method == 'POST':
+        img = request.FILES.get('img')
+        print(img)
+        print(request.FILES)
+        print(request)
+        print(request.POST['test'])
+    return HttpResponse('photo')
 
 
 @csrf_exempt

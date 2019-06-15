@@ -1,5 +1,6 @@
 // pages/home/home.js
 var app = getApp();
+const { $Toast } = require('../../dist/base/index');
 
 Page({
 

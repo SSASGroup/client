@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/home/home",
     "pages/resume/resume",
     "pages/mine/mine",
@@ -14,11 +14,11 @@
     "pages/surveyAnswerList/surveyAnswerList",
     "pages/surveyAnswerDetail/surveyAnswerDetail"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "SYSU挣闲钱",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
     "list": [
@@ -41,5 +41,6 @@
         "selectedIconPath": "images/selected-mine.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

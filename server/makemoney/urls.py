@@ -11,5 +11,6 @@ urlpatterns = [
     path('stopSurvey/', views.stopSurvey),
     path('releaseResume/', views.releaseResume),
     path('resume/', views.resume),
-    path('submitResume/', views.submitResume)
+    path('submitResume/', views.submitResume),
+    path('submitResumePhoto/', views.submitResumePhoto)
 ]
