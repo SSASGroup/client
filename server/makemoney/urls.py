@@ -10,5 +10,6 @@ urlpatterns = [
     path('surveyAnswerList/', views.surveyAnswerList),
     path('stopSurvey/', views.stopSurvey),
     path('releaseResume/', views.releaseResume),
-    path('resume/', views.resume)
+    path('resume/', views.resume),
+    path('submitResume/', views.submitResume)
 ]

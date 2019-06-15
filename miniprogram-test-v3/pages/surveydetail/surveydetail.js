@@ -14,19 +14,7 @@ Page({
       // numOfQustions: 2,
       // id: 123,
       // idOfUploader: 123,
-      // questions: [
-      //   { title: '问题1', 
-      //     radio: true,
-      //     current: null,
-      //     choices: [
-      //     '1', '2', '3', '4'
-      //   ]},
-      //   { title: '问题2', 
-      //     radio: true,
-      //     current: null, 
-      //     choices: [
-      //     '5', '6', '7'
-      //   ]}
+      // questions: []}
       // ]
     }
   },

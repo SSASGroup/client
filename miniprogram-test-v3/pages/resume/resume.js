@@ -7,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    resumes: []
+    resumes: [],
+    resOfAnswer: 0,  //用于填写完简历之后返回的操作
   },
 
   search() {
@@ -69,9 +70,28 @@ Page({
 
   /**
    * 生命周期函数--监听页面显示
+   * 从简历详情页面返回时在Toast提示填写的结果
    */
   onShow: function () {
-
+    let that = this;
+    console.log(that.data.resOfAnswer)
+    if(that.data.resOfAnswer == 'payed') {
+      $Toast({
+        content: 'You get paid！',
+        type: 'success'
+      });
+      that.setData({
+        resOfAnswer: 0
+      })
+    }else if(that.data.resOfAnswer == 'bad') {
+      $Toast({
+        content: '发布者余额不足',
+        type: 'warning'
+      });
+      that.setData({
+        resOfAnswer: 0
+      })
+    }
   },
 
   /**

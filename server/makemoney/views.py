@@ -140,13 +140,29 @@ def submitSurvey(request):
                                              nameOfUser=answer['nameOfUser'])
         print('return?')
         return HttpResponse('payed')
-    return HttpResponse('POST')
+    return HttpResponse('submitSurvey')
 
 
 @csrf_exempt
 def submitResume(request):
-    # if request.method == 'POST':
-    pass
+    if request.method == 'POST':
+        answer = json.loads(request.POST['answer'])
+        print(answer)
+        Releaser = models.Users.objects.get(openid=answer['idOfReleaser'])
+        print(Releaser.money)
+        if Releaser.money < answer['reward']:
+            return HttpResponse('bad')
+        Releaser.money -= Decimal(answer['reward'])
+        Releaser.save()
+        Answerer = models.Users.objects.get(openid=answer['answerer'])
+        Answerer.money += Decimal(answer['reward'])
+        Answerer.idOfResumeAnswered.append(answer['id'])
+        Answerer.save()
+        models.answerOfresume.objects.create(title=answer['title'], idOfReleaser=Releaser,
+                                             idOfResume=answer['id'], questions=answer['questions'],
+                                             nameOfUser=answer['nameOfUser'])
+        return HttpResponse('payed')
+    return HttpResponse('submitResume')
 
 
 @csrf_exempt

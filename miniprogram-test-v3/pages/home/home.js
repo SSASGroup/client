@@ -136,6 +136,7 @@ Page({
 
   /**
    * 生命周期函数--监听页面显示
+   * 从问卷详情页面返回时在Toast提示填写的结果
    */
   onShow: function () {
     let that = this;

@@ -82,9 +82,31 @@ Page({
           type: 'warning'
         });
       }else {
-        let resume = that.data.resume;
-        
-        console.log(resume)
+        let answer = that.data.resume;
+        answer.nameOfUser = app.globalData.userInfo.nickName;
+        answer.answerer = app.globalData.openid;
+        wx.request({
+          url: app.globalData.HOST + 'submitResume/',
+          method: 'POST',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          data: {
+            answer: JSON.stringify(answer)
+          },
+          success: (res) => {
+            console.log(res.data)
+            let pages = getCurrentPages();
+            let prevPage = pages[pages.length - 2];
+            prevPage.setData({
+              resOfAnswer: res.data
+            })
+            console.log(prevPage.data.resOfAnswer)
+            wx.navigateBack({
+              delta: 1
+            })
+          }
+        })
       }
     }
   },
