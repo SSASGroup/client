@@ -1,5 +1,5 @@
 var WxSearch = require('../../wxSearchView/wxSearchView.js');
-
+var app = getApp();
 // pages/wxml/index.js
 Page({
 
@@ -74,6 +74,9 @@ Page({
       that.mySearchFunction, // 提供一个搜索回调函数
       that.myGobackFunction //提供一个返回回调函数
     );
+    that.setData({
+      type: options.type
+    })
   },
 
   wxSearchInput: WxSearch.wxSearchInput,  // 输入变化时的操作
@@ -85,9 +88,52 @@ Page({
   mySearchFunction: function (value) {
     // do your job here
     // 示例：跳转
-    wx.navigateTo({
-      url: '/pages/logs/logs'
-    })
+    let that = this;
+    if(that.data.type == 'survey') {
+      wx.request({
+        url: app.globalData.HOST + 'searchSurvey/',
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          value: value,
+          openid: app.globalData.openid
+        },
+        success: function(res) {
+          let pages = getCurrentPages();
+          let prevPage = pages[pages.length - 2];
+          prevPage.setData({
+            surveys: res.data
+          })
+          wx.navigateBack({
+            delta: 1
+          })  
+        }
+      })
+    }else if(that.data.type == 'resume') {
+      wx.request({
+        url: app.globalData.HOST + 'searchResume/',
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          value: value,
+          openid: app.globalData.openid
+        },
+        success: function(res) {
+          let pages = getCurrentPages();
+          let prevPage = pages[pages.length - 2];
+          prevPage.setData({
+            resumes: res.data
+          })
+          wx.navigateBack({
+            delta: 1
+          })            
+        }
+      })
+    }
   },
 
   // 5 返回回调函数

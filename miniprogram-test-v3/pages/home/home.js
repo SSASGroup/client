@@ -20,7 +20,7 @@ Page({
 
   search () {
     wx.navigateTo({
-      url: '/pages/search/search',
+      url: '/pages/search/search?type=survey',
     })
   },
 

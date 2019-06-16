@@ -266,3 +266,55 @@ def money(request):
         user = models.Users.objects.get(openid=openid)
         return HttpResponse(user.money)
     return HttpResponse('money')
+
+
+from django.db.models import Q
+@csrf_exempt
+def searchSurvey(request):
+    if request.method == 'POST':
+        value = request.POST['value']
+        openid = request.POST['openid']
+        surveys = models.surveys.objects.all().filter(stop=False)
+        idOfSurveyAnswered = models.Users.objects.get(
+            openid=openid).idOfSurveyAnswered
+        for id in idOfSurveyAnswered:
+            surveys = surveys.exclude(id=id)
+        surveys = surveys.filter(Q(title__icontains=value) | Q(description__icontains=value))
+        res = []
+        for s in surveys:
+            values = {}
+            values['id'] = s.id
+            values['title'] = s.title
+            values['description'] = s.description
+            values['numOfQuestions'] = s.numOfQuestions
+            values['idOfReleaser'] = s.idOfReleaser.openid
+            values['reward'] = float(s.reward)
+            values['questions'] = s.questions
+            res.append(values)
+        return HttpResponse(json.dumps(res), content_type="application/json")
+    return HttpResponse('searchSurvey')
+
+
+@csrf_exempt
+def searchResume(request):
+    if request.method == 'POST':
+        openid = request.POST['openid']
+        value = request.POST['value']
+        resumes = models.resumes.objects.all().filter(stop=False)
+        idOfResumeAnswered = models.Users.objects.get(
+            openid=openid).idOfResumeAnswered
+        for id in idOfResumeAnswered:
+            resumes = resumes.exclude(id=id)
+        resumes = resumes.filter(Q(title__icontains=value) | Q(description__icontains=value))
+        res = []
+        for r in resumes:
+            values = {}
+            values['id'] = r.id
+            values['title'] = r.title
+            values['description'] = r.description
+            values['idOfReleaser'] = r.idOfReleaser
+            values['reward'] = float(r.reward)
+            values['questions'] = r.questions
+            res.append(values)
+        return HttpResponse(json.dumps(res), content_type="application/json")
+    return HttpResponse('searchResume')
