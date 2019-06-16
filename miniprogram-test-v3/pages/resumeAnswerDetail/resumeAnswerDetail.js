@@ -1,18 +1,27 @@
-// pages/resumeAnswerDetail/resumeDetail.js
+// pages/resumeAnswerDetail/resumeAnswerDetail.js
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    resume: null //其实是带答案的简历
   },
 
   /**
    * 生命周期函数--监听页面加载
+   * 获取从resumeAnswerList传来的数据
    */
   onLoad: function (options) {
-
+    let that = this;
+    let resume = that.data.resume;
+    resume = JSON.parse(options.resume);
+    resume.imgSrc = app.globalData.HOST + resume.imgSrc.substr(1, resume.imgSrc.length);
+    that.setData({
+      resume
+    })
+    console.log(that.data)
   },
 
   /**

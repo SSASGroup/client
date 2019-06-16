@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -7,8 +8,6 @@ from decimal import Decimal
 from . import models
 
 # Create your views here.
-
-
 @csrf_exempt
 def login(request):
     if request.method == 'POST':
@@ -234,7 +233,7 @@ def resumeAnswerList(request):
             values['id'] = s.id
             values['imgSrc'] = s.photo.url
             res.append(values)
-        # print(res)
+        print(res)
         return HttpResponse(json.dumps(res), content_type="application/json")
     return HttpResponse('surveyAnswerList')  
 

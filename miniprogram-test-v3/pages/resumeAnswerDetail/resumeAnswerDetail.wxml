@@ -1,0 +1,17 @@
+<!--pages/resumeAnswerDetail/resumeAnswerDetail.wxml-->
+<view class='title'>
+<text>{{resume.title}}</text>
+</view>
+
+<view class='icon-item'>
+  <image src='{{resume.imgSrc}}' class='imgsize'></image>
+</view>
+
+<view>
+  <block wx:for='{{resume.questions}}' wx:key='{{title}}'>
+    <i-panel title='{{item.title}}'>
+    <i-input type='text' disabled="true" placeholder="{{item.answer}}"/>
+    </i-panel>
+  </block>
+</view>
+

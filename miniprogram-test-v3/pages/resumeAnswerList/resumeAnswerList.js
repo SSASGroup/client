@@ -72,7 +72,7 @@ Page({
     let resume = that.data.answersOfresume[index];
     console.log(resume)
     wx.navigateTo({
-      url: '/pages/surveyAnswerDetail/surveyAnswerDetail?survey=' + JSON.stringify(resume)
+      url: '/pages/resumeAnswerDetail/resumeAnswerDetail?resume=' + JSON.stringify(resume)
     })
   },
 

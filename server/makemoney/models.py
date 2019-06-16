@@ -55,6 +55,6 @@ class answerOfresume(models.Model):
     title = models.CharField(max_length=30)
     idOfReleaser = models.CharField(max_length=100)
     idOfResume = models.IntegerField()
-    questions = ArrayField(models.CharField(max_length=100))
+    questions = ArrayField(JSONField(default=dict))
     nameOfUser = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='images/', blank=True)

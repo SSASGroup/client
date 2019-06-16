@@ -14,7 +14,7 @@
     "pages/surveyAnswerList/surveyAnswerList",
     "pages/surveyAnswerDetail/surveyAnswerDetail",
     "pages/resumeAnswerList/resumeAnswerList",
-    "pages/resumeAnswerDetail/resumeDetail"
+    "pages/resumeAnswerDetail/resumeAnswerDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

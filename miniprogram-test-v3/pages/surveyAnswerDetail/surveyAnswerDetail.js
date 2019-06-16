@@ -18,7 +18,7 @@ Page({
     that.setData({
       survey
     })
-    console.log(that.data)
+    // console.log(that.data)
   },
 
   /**

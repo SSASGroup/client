@@ -1,6 +1,6 @@
 <!--pages/resumedetail/resumedetail.wxml-->
 <view class='title'>
-<text>简历标题</text>
+<text>{{resume.title}}</text>
 </view>
 
 <view class='icon-item'>
@@ -11,9 +11,7 @@
 
 <view>
   <block wx:for='{{resume.questions}}' wx:key='{{title}}'>
-    <i-panel title='{{item.title}}'>
-    <i-input type='text' bindchange='handleInputChange' id='{{index}}'/>
-    </i-panel>
+    <i-input type='text' title='{{item.title}}' bindchange='handleInputChange' id='{{index}}'/>
   </block>
 </view>
 
