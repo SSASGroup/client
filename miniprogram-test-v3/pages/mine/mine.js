@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
-const app = getApp()
+const app = getApp();
+const { $Toast } = require('../../dist/base/index');
 
 Page({
   data: {
@@ -63,15 +64,43 @@ Page({
     })
   },
 
+  /**
+   * 跳转至发布问卷页面
+   */
   nvigateToRealaseSurvey: function(e) {
     wx.navigateTo({
       url: '/pages/releaseSurvey/releaseSurvey',
     })
   },
 
+  /**
+   * 跳转至发布简历页面
+   */
   nvigateToReleaseResume: function(e) {
     wx.navigateTo({
       url: '/pages/releaseResume/releaseResume',
+    })
+  },
+
+  /**
+   * 显示余额
+   */
+  nvigateToMoney: function(e) {
+    wx.request({
+      url: app.globalData.HOST + 'money/',
+      method: 'POST',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        id: app.globalData.openid
+      },
+      success: function(res) {
+        $Toast({
+          content: res.data,
+          type: 'success'
+        });
+      }
     })
   },
 

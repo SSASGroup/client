@@ -193,7 +193,7 @@ Page({
       console.log(survey);
       wx.request({
         // 必需
-        url: 'http://lynb.cn1.utools.club/releaseSurvey/',
+        url: app.globalData.HOST + 'releaseSurvey/',
         data: {
           survey: JSON.stringify(survey)
         },

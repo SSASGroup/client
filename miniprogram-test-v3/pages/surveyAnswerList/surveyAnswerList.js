@@ -45,7 +45,7 @@ Page({
     let that = this;
     let idOfSurvey = that.data.idOfSurvey;
     wx.request({
-      url: 'http://lynb.cn1.utools.club/stopSurvey/',
+      url: app.globalData.HOST + 'stopSurvey/',
       method: 'POST',
       data: {
         idOfSurvey: idOfSurvey

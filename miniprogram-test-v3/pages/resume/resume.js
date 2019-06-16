@@ -84,6 +84,7 @@ Page({
       that.setData({
         resOfAnswer: 0
       })
+      wx.startPullDownRefresh()
     }else if(that.data.resOfAnswer == 'bad') {
       $Toast({
         content: '发布者余额不足',

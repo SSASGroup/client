@@ -27,7 +27,7 @@ Page({
   onLoad: function (options) {
     console.log(app.globalData.openid)
     wx.request({
-      url: 'http://lynb.cn1.utools.club/mySurvey/',
+      url: app.globalData.HOST + 'mySurvey/',
       // url: 'http://localhost:8000/mySurvey/',
       method: 'POST',
       data: {

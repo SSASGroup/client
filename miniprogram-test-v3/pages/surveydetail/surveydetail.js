@@ -78,7 +78,7 @@ Page({
       })
       console.log(this.data.survey);
       wx.request({
-        url: 'http://lynb.cn1.utools.club/submitSurvey/',
+        url: app.globalData.HOST + 'submitSurvey/',
         // url: 'http://localhost:8000/submitSurvey/',
         method: 'POST',
         header: {

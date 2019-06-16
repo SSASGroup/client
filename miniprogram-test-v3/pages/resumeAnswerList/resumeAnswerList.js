@@ -46,7 +46,7 @@ Page({
     let that = this;
     let idOfResume = that.data.idOfResume;
     wx.request({
-      url: 'http://lynb.cn1.utools.club/stopResume/',
+      url: app.globalData.HOST + 'stopResume/',
       method: 'POST',
       data: {
         idOfResume: idOfResume

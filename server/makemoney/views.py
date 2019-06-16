@@ -257,3 +257,12 @@ def stopResume(request):
         resume.save()
         return HttpResponse('Stop resume!')
     return HttpResponse('stopResume')
+
+
+@csrf_exempt
+def money(request):
+    if request.method == "POST":
+        openid = request.POST['id']
+        user = models.Users.objects.get(openid=openid)
+        return HttpResponse(user.money)
+    return HttpResponse('money')

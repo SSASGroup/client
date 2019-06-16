@@ -126,7 +126,7 @@ Page({
       resume.idOfReleaser = app.globalData.openid;
       console.log(resume)
       wx.request({
-        url: 'http://lynb.cn1.utools.club/releaseResume/',
+        url: app.globalData.HOST + 'releaseResume/',
         method: 'POST',
         data: {
           resume: JSON.stringify(resume)

@@ -5,30 +5,6 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
-    /*
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log(res);
-        wx.request({
-          url: 'http://localhost:8000/login/',
-          method: 'POST',
-          header: {
-            'content-type': 'application/x-www-form-urlencoded'
-          },
-          data: {
-            code: res.code
-          },
-          success: function(res1) {
-            console.log(res1);       
-          },
-          fail: function(error) {console.log('fail')}
-        })
-      }
-    })
-    */
     
     // 获取用户信息
     wx.getSetting({
@@ -56,6 +32,8 @@ App({
   globalData: {
     userInfo: null,
     openid: null,
-    HOST: 'http://lynb.cn1.utools.club/'
+    // HOST: 'http://lynb.cn1.utools.club/'
+    // HOST: 'http://localhost:8000/'
+    HOST: 'http://129.28.40.31:8000/'
   }
 })

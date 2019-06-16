@@ -85,7 +85,7 @@ Page({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         console.log(res);
         wx.request({
-          url: 'http://lynb.cn1.utools.club/login/',
+          url: app.globalData.HOST + 'login/',
           method: 'POST',
           header: {
             'content-type': 'application/x-www-form-urlencoded'
@@ -105,7 +105,7 @@ Page({
             // 向后台请求问卷
             let surveys = that.data.surveys;
             wx.request({
-              url: 'http://lynb.cn1.utools.club/home/',
+              url: app.globalData.HOST + 'home/',
               method: 'POST',
               header: {
                 'content-type': 'application/x-www-form-urlencoded'
@@ -150,6 +150,7 @@ Page({
       that.setData({
         resOfAnswer: 0
       })
+      wx.startPullDownRefresh()
     }else if(that.data.resOfAnswer == 'bad') {
       $Toast({
         content: '发布者余额不足',
@@ -182,7 +183,7 @@ Page({
     let that = this;
     let surveys = that.data.surveys;
     wx.request({
-      url: 'http://lynb.cn1.utools.club/home/',
+      url: app.globalData.HOST + 'home/',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
