@@ -12,5 +12,7 @@ urlpatterns = [
     path('releaseResume/', views.releaseResume),
     path('resume/', views.resume),
     path('submitResume/', views.submitResume),
-    path('submitResumePhoto/', views.submitResumePhoto)
+    path('myResume/', views.myResume),
+    path('resumeAnswerList/', views.resumeAnswerList),
+    path('stopResume/', views.stopResume)
 ]

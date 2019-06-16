@@ -82,5 +82,14 @@ Page({
     wx.navigateTo({
       url: '/pages/mySurvey/mySurvey'
     })
-  }
+  },
+
+  /**
+   * 跳转至我发布的简历页面
+   */
+  nvigateToMyResume: function(e) {
+    wx.navigateTo({
+      url: '/pages/myResume/myResume'
+    })
+  },
 })

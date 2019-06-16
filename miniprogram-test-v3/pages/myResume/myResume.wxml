@@ -1,2 +1,10 @@
 <!--pages/myResume/myResume.wxml-->
-<text>pages/myResume/myResume.wxml</text>
+<view >
+    <view>
+      <block wx:for="{{resumes}}" wx:key="id">
+      <i-panel>
+        <i-cell title="{{item.title}}" label="{{item.description}}" is-link bind:click='nvigateToAnswerList' id="{{index}}"></i-cell>
+      </i-panel>
+      </block>
+  </view>
+</view>

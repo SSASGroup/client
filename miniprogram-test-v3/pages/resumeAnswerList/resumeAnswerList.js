@@ -1,54 +1,55 @@
-// pages/surveyAnswerList/surveyAnswerList.js
+// pages/resumeAnswerList/resumeAnswerList.js
 var app = getApp();
 const { $Toast } = require('../../dist/base/index');
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    idOfSurvey: null, //两个用处，一是用来找到survey并停止它继续接受回答，二是根据这个id获取id为这个的问卷的答案
-    answersOfsurvey: []
+    idOfResume: null, //两个用处，一是用来找到resume并停止它继续接受回答，二是根据这个id获取id为这个的简历的答案
+    answersOfresume: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let idOfSurvey = parseInt(options.id);
+    let idOfResume = parseInt(options.id);
     wx.request({
-      url: app.globalData.HOST + 'surveyAnswerList/',
+      url: app.globalData.HOST + 'resumeAnswerList/',
       method: 'POST',
       data: {
-        idOfSurvey: idOfSurvey
+        idOfResume: idOfResume
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: (res) => {
         let that = this;
-        let answersOfsurvey = that.data.answersOfsurvey;
-        answersOfsurvey = res.data;
+        let answersOfresume = that.data.answersOfresume;
+        answersOfresume = res.data;
         that.setData({
-          answersOfsurvey: answersOfsurvey,
-          idOfSurvey: idOfSurvey
+          answersOfresume: answersOfresume,
+          idOfResume: idOfResume
         });
-        console.log(that.data)
+        // console.log(that.data)
       }
     })
   },
 
   /**
-   * 问卷不再接受回答
+   * 简历不再接受回答
    */
-  stopSurvey: function (e) {
+  stopResume: function() {
     let that = this;
-    let idOfSurvey = that.data.idOfSurvey;
+    let idOfResume = that.data.idOfResume;
     wx.request({
-      url: 'http://lynb.cn1.utools.club/stopSurvey/',
+      url: 'http://lynb.cn1.utools.club/stopResume/',
       method: 'POST',
       data: {
-        idOfSurvey: idOfSurvey
+        idOfResume: idOfResume
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -62,13 +63,16 @@ Page({
     })
   },
 
-  nvigateToAnswerDetail: function (e) {
+  /**
+   * 
+   */
+  nvigateToAnswerDetail: function(e) {
     let that = this;
     let index = parseInt(e.target.id);
-    let survey = that.data.answersOfsurvey[index];
-    console.log(survey)
+    let resume = that.data.answersOfresume[index];
+    console.log(resume)
     wx.navigateTo({
-      url: '/pages/surveyAnswerDetail/surveyAnswerDetail?survey=' + JSON.stringify(survey)
+      url: '/pages/surveyAnswerDetail/surveyAnswerDetail?survey=' + JSON.stringify(resume)
     })
   },
 

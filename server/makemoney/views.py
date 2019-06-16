@@ -167,17 +167,6 @@ def submitResume(request):
 
 
 @csrf_exempt
-def submitResumePhoto(request):
-    if request.method == 'POST':
-        img = request.FILES.get('img')
-        print(img)
-        print(request.FILES)
-        print(request)
-        print(request.POST['test'])
-    return HttpResponse('photo')
-
-
-@csrf_exempt
 def mySurvey(request):
     if request.method == 'POST':
         openid = request.POST['id']
@@ -196,9 +185,27 @@ def mySurvey(request):
 
 
 @csrf_exempt
+def myResume(request):
+    if request.method == 'POST':
+        openid = request.POST['id']
+        user = models.Users.objects.get(openid=openid)
+        resumes = models.resumes.objects.all().filter(idOfReleaser=user)
+        res = []
+        for r in resumes:
+            values = {}
+            values['id'] = r.id
+            values['title'] = r.title
+            values['description'] = r.description
+            res.append(values)
+        return HttpResponse(json.dumps(res), content_type="application/json")
+    return HttpResponse('mySurvey')
+
+
+
+@csrf_exempt
 def surveyAnswerList(request):
     if request.method == 'POST':
-        idOfSurvey = request.POST['id']
+        idOfSurvey = request.POST['idOfSurvey']
         answers = models.answerOfsurvey.objects.all().filter(idOfSurvey=idOfSurvey)
         res = []
         for s in answers:
@@ -213,11 +220,41 @@ def surveyAnswerList(request):
 
 
 @csrf_exempt
+def resumeAnswerList(request):
+    if request.method == 'POST':
+        idOfResume = request.POST['idOfResume']
+        print(request.POST)
+        answers = models.answerOfresume.objects.all().filter(idOfResume=idOfResume)
+        res = []
+        for s in answers:
+            values = {}
+            values['nameOfUser'] = s.nameOfUser
+            values['title'] = s.title
+            values['questions'] = s.questions
+            values['id'] = s.id
+            values['imgSrc'] = s.photo.url
+            res.append(values)
+        # print(res)
+        return HttpResponse(json.dumps(res), content_type="application/json")
+    return HttpResponse('surveyAnswerList')  
+
+
+@csrf_exempt
 def stopSurvey(request):
     if request.method == 'POST':
-        idOfSurvey = request.POST['id']
+        idOfSurvey = request.POST['idOfSurvey']
         survey = models.surveys.objects.get(id=idOfSurvey)
         survey.stop = True
         survey.save()
         return HttpResponse('Stop survey!')
     return HttpResponse('stopSurvey')
+
+@csrf_exempt
+def stopResume(request):
+    if request.method == "POST":
+        idOfResume = request.POST['idOfResume']
+        resume = models.resumes.objects.get(id=idOfResume)
+        resume.stop = True
+        resume.save()
+        return HttpResponse('Stop resume!')
+    return HttpResponse('stopResume')

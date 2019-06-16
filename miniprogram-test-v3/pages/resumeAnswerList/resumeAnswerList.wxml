@@ -1,0 +1,15 @@
+<!--pages/resumeAnswerList/resumeAnswerList.wxml-->
+<view>
+  <view>
+    <i-button type='error' shape='circle' bind:click='stopResume'>停止回答</i-button>
+  </view>
+  
+  <view>
+    <block wx:for="{{answersOfresume}}" wx:key="id">
+      <i-panel>
+        <i-cell title="{{item.nameOfUser}}" isLink bind:click="nvigateToAnswerDetail" id='{{index}}'></i-cell>
+      </i-panel>
+    </block>
+  </view>
+  <i-toast id="toast"></i-toast>
+</view>

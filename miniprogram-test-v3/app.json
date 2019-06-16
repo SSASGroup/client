@@ -12,7 +12,9 @@
     "pages/mySurvey/mySurvey",
     "pages/myResume/myResume",
     "pages/surveyAnswerList/surveyAnswerList",
-    "pages/surveyAnswerDetail/surveyAnswerDetail"
+    "pages/surveyAnswerDetail/surveyAnswerDetail",
+    "pages/resumeAnswerList/resumeAnswerList",
+    "pages/resumeAnswerDetail/resumeDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
