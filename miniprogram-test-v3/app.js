@@ -33,7 +33,8 @@ App({
     userInfo: null,
     openid: null,
     // HOST: 'http://lynb.cn1.utools.club/'
-    HOST: 'http://localhost:8000/'
+    // HOST: 'http://localhost:8000/'
     // HOST: 'http://129.28.40.31:8000/'
+    HOST: 'https://tiandiyijian.club/'
   }
 })

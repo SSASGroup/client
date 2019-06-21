@@ -6,6 +6,7 @@ import requests
 import json
 from decimal import Decimal
 from . import models
+from django.db.models import Q
 
 # Create your views here.
 @csrf_exempt
@@ -42,7 +43,7 @@ def releaseSurvey(request):
             'description'], numOfQuestions=survey['numOfQuestions'],
             idOfReleaser=user, reward=survey['reward'],
             questions=survey['questions'])
-        return HttpResponse('You post')
+        return HttpResponse('releaseSurvey')
     return HttpResponse('You get')
 
 
@@ -268,7 +269,6 @@ def money(request):
     return HttpResponse('money')
 
 
-from django.db.models import Q
 @csrf_exempt
 def searchSurvey(request):
     if request.method == 'POST':
